@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Apoorwa | Cyber Anime Portfolio</title>
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME -->
+  <link rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#050816;
+      color:white;
+      font-family:'Poppins',sans-serif;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    a{
+      text-decoration:none;
+      color:white;
+    }
+
+    img{
+      width:100%;
+      display:block;
+    }
+
+    ul{
+      list-style:none;
+    }
+
+    /* =========================
+       ANIMATED BACKGROUND
+    ========================== */
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      background:
+      linear-gradient(rgba(5,8,22,0.88),rgba(5,8,22,0.92)),
+      url('images/p3 bg.jpg');
+      background-size:cover;  
+      background-position:center;
+      z-index:-5;
+    }
+
+    .glow{
+      position:fixed;
+      border-radius:50%;
+      filter:blur(120px);
+      z-index:-4;
+      opacity:0.5;
+      animation:floatGlow 10s infinite alternate ease-in-out;
+    }
+
+    .glow1{
+      width:400px;
+      height:400px;
+      background:#ff006a;
+      top:-120px;
+      left:-100px;
+    }
+
+    .glow2{
+      width:350px;
+      height:350px;
+      background:#00e1ff;
+      bottom:-100px;
+      right:-100px;
+      animation-delay:2s;
+    }
+
+    .glow3{
+      width:300px;
+      height:300px;
+      background:#7b00ff;
+      top:40%;
+      left:40%;
+      animation-delay:4s;
+    }
+
+    @keyframes floatGlow{
+
+      from{
+        transform:translateY(0px) translateX(0px);
+      }
+
+      to{
+        transform:translateY(40px) translateX(30px);
+      }
+    }
+
+    /* =========================
+       NAVBAR
+    ========================== */
+
+    nav{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:999;
+      background:rgba(5,8,22,0.6);
+      backdrop-filter:blur(14px);
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .nav-container{
+      width:90%;
+      margin:auto;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:20px 0;
+    }
+
+    .logo{
+      font-size:2rem;
+      font-family:'Orbitron',sans-serif;
+      font-weight:900;
+      color:#00e1ff;
+      text-shadow:0 0 15px #00e1ff;
+    }
+
+    nav ul{
+      display:flex;
+      gap:25px;
+    }
+
+    nav ul li a{
+      transition:0.3s;
+      position:relative;
+      font-weight:500;
+    }
+
+    nav ul li a:hover{
+      color:#ff00aa;
+      text-shadow:0 0 10px #ff00aa;
+    }
+
+    /* =========================
+       HERO
+    ========================== */
+
+    .hero{
+      min-height:100vh;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      padding:130px 10% 80px;
+    }
+
+    .hero-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:60px;
+      align-items:center;
+    }
+
+    .hero-text h4{
+      color:#ff00aa;
+      letter-spacing:4px;
+      margin-bottom:20px;
+    }
+
+    .hero-text h1{
+      font-size:5rem;
+      line-height:1.1;
+      margin-bottom:25px;
+      font-family:'Orbitron',sans-serif;
+      text-shadow:0 0 25px rgba(0,225,255,0.3);
+    }
+
+    .hero-text span{
+      color:#00e1ff;
+      text-shadow:0 0 20px #00e1ff;
+    }
+
+    .hero-text p{
+      color:#cfcfcf;
+      line-height:1.9;
+      margin-bottom:35px;
+      max-width:650px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:15px 35px;
+      border:none;
+      border-radius:50px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.4s;
+      font-size:1rem;
+    }
+
+    .primary-btn{
+      background:linear-gradient(135deg,#00e1ff,#7b00ff);
+      color:white;
+      box-shadow:0 0 25px rgba(0,225,255,0.4);
+    }
+
+    .primary-btn:hover{
+      transform:translateY(-6px) scale(1.03);
+      box-shadow:0 0 35px #00e1ff;
+    }
+
+    .outline-btn{
+      background:transparent;
+      border:2px solid #ff00aa;
+      color:white;
+    }
+
+    .outline-btn:hover{
+      background:#ff00aa;
+      transform:translateY(-6px);
+      box-shadow:0 0 25px #ff00aa;
+    }
+
+    .hero-image{
+      position:relative;
+    }
+
+    .hero-image img{    
+      width:340px;
+      max-width:100%;
+      display:block;
+      margin:0 auto;
+      border-radius:30px;
+      border:2px solid rgba(255,255,255,0.08);
+      box-shadow:0 0 40px rgba(0,225,255,0.2);
+      animation:floatImage 5s infinite ease-in-out;
+    }
+
+    @keyframes floatImage{
+
+      0%{
+        transform:translateY(0px);
+      }
+
+      50%{
+        transform:translateY(-15px);
+      }
+
+      100%{
+        transform:translateY(0px);
+      }
+    }
+
+    /* =========================
+       SECTIONS
+    ========================== */
+
+    section{
+      padding:100px 10%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .section-title h2{
+      font-size:3rem;
+      color:#00e1ff;
+      font-family:'Orbitron',sans-serif;
+      margin-bottom:10px;
+      text-shadow:0 0 15px #00e1ff;
+    }
+
+    .section-title p{
+      color:#bbb;
+    }
+
+    /* =========================
+       GLASS CARDS
+    ========================== */
+
+    .glass-card{
+      background:rgba(255,255,255,0.05);
+      backdrop-filter:blur(14px);
+      border:1px solid rgba(255,255,255,0.08);
+      border-radius:30px;
+      padding:35px;
+      transition:0.4s;
+      overflow:hidden;
+      position:relative;
+    }
+
+    .glass-card::before{
+      content:"";
+      position:absolute;
+      width:200px;
+      height:200px;
+      background:rgba(0,225,255,0.08);
+      border-radius:50%;
+      top:-100px;
+      right:-100px;
+      filter:blur(40px);
+    }
+
+    .glass-card:hover{
+      transform:translateY(-10px);
+      border-color:#00e1ff;
+      box-shadow:0 0 35px rgba(0,225,255,0.15);
+    }
+
+    /* =========================
+       ABOUT
+    ========================== */
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+
+    .glass-card h3{
+      margin-bottom:15px;
+      color:#ff00aa;
+    }
+
+    .glass-card p{
+      color:#ccc;
+      line-height:1.8;
+    }
+
+    /* =========================
+       SKILLS
+    ========================== */
+
+    .skills-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
+      gap:20px;
+    }
+
+    .skill-card{
+      text-align:center;
+    }
+
+    .skill-card i{
+      font-size:2.5rem;
+      margin-bottom:15px;
+      color:#00e1ff;
+      text-shadow:0 0 15px #00e1ff;
+    }
+
+    /* =========================
+       PROJECTS
+    ========================== */
+
+    .projects-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:30px;
+    }
+
+    .project-card img{
+      height:220px;
+      object-fit:cover;
+      border-radius:20px;
+      margin-bottom:20px;
+    }
+
+    .project-card h3{
+      margin-bottom:10px;
+    }
+
+    .project-card p{
+      margin-bottom:20px;
+      color:#ccc;
+      line-height:1.7;
+    }
+
+    /* =========================
+       STATS
+    ========================== */
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+      gap:25px;
+    }
+
+    .stat-card{
+      text-align:center;
+    }
+
+    .stat-card h2{
+      font-size:3rem;
+      color:#00e1ff;
+      margin-bottom:10px;
+      text-shadow:0 0 15px #00e1ff;
+    }
+
+    /* =========================
+       CONTACT
+    ========================== */
+
+    .contact-box{
+      text-align:center;
+      max-width:850px;
+      margin:auto;
+    }
+
+    .socials{
+      margin-top:35px;
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .socials a{
+      width:60px;
+      height:60px;
+      border-radius:50%;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      background:rgba(255,255,255,0.08);
+      font-size:1.4rem;
+      transition:0.4s;
+      color:#00e1ff;
+      border:1px solid rgba(255,255,255,0.08);
+    }
+
+    .socials a:hover{
+      background:#00e1ff;
+      color:#050816;
+      transform:translateY(-8px);
+      box-shadow:0 0 25px #00e1ff;
+    }
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    footer{
+      text-align:center;
+      padding:30px;
+      color:#aaa;
+    }
+
+    /* =========================
+       ANIMATION
+    ========================== */
+
+    .fade{
+      opacity:0;
+      transform:translateY(40px);
+      transition:1s;
+    }
+
+    .fade.show{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    /* =========================
+       RESPONSIVE
+    ========================== */
+
+    @media(max-width:900px){
+
+      nav ul{
+        display:none;
+      }
+
+      .hero-text h1{
+        font-size:3rem;
+      }
+    }
+
+  </style>
+
+</head>
+
+<body>
+
+  <!-- GLOWS -->
+
+  <div class="glow glow1"></div>
+  <div class="glow glow2"></div>
+  <div class="glow glow3"></div>
+
+  <!-- NAVBAR -->
+
+  <nav>
+
+    <div class="nav-container">
+
+      <div class="logo">APOORWA</div>
+
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#stats">Stats</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+    </div>
+
+  </nav>
+
+  <!-- HERO -->
+
+  <section class="hero">
+
+    <div class="hero-container">
+
+      <div class="hero-text fade">
+
+        <h4>CYBER ANIME CREATIVE DEVELOPER</h4>
+
+        <h1>
+          Building <span>Futuristic</span> Anime Worlds
+        </h1>
+
+        <p>
+          Full Stack Developer • UI/UX Designer • Digital Artist • Anime Inspired Creator.
+          Creating immersive cyber anime experiences with futuristic interfaces,
+          neon aesthetics, and imaginative storytelling.
+        </p>
+
+        <div class="hero-buttons">
+
+          <a href="#projects">
+            <button class="btn primary-btn">
+              View Projects
+            </button>
+          </a>
+
+          <a href="#contact">
+            <button class="btn outline-btn">
+              Contact Me
+            </button>
+          </a>
+
+        </div>
+
+      </div>
+
+      <div class="hero-image fade">
+        <img src="images/pp.jpeg" alt="Apoorwa Profile">
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+
+    <div class="section-title fade">
+      <h2>About Me</h2>
+      <p>Creative imagination meets futuristic development</p>
+    </div>
+
+    <div class="about-grid">
+
+      <div class="glass-card fade">
+
+        <h3>Creative Developer</h3>
+
+        <p>
+          Building futuristic digital experiences inspired by anime aesthetics,
+          cyberpunk worlds, and immersive storytelling.
+        </p>
+
+      </div>
+
+      <div class="glass-card fade">
+
+        <h3>UI / UX Designer</h3>
+
+        <p>
+          Designing modern neon interfaces with smooth interactions,
+          immersive layouts, and futuristic visual systems.
+        </p>
+
+      </div>
+
+      <div class="glass-card fade">
+
+        <h3>Digital Artist</h3>
+
+        <p>
+          Creating anime inspired artworks, branding concepts,
+          and imaginative creative experiences.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- SKILLS -->
+
+  <section id="skills">
+
+    <div class="section-title fade">
+      <h2>Skills</h2>
+      <p>Technologies & Creative Tools</p>
+    </div>
+
+    <div class="skills-grid">
+
+      <div class="glass-card skill-card fade">
+        <i class="fab fa-html5"></i>
+        <h3>HTML5</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fab fa-css3-alt"></i>
+        <h3>CSS3</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fab fa-js"></i>
+        <h3>JavaScript</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fab fa-react"></i>
+        <h3>React</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fab fa-php"></i>
+        <h3>PHP</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fas fa-database"></i>
+        <h3>MySQL</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fas fa-palette"></i>
+        <h3>Graphic Design</h3>
+      </div>
+
+      <div class="glass-card skill-card fade">
+        <i class="fas fa-pen-nib"></i>
+        <h3>Branding</h3>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- PROJECTS -->
+
+  <section id="projects">
+
+    <div class="section-title fade">
+      <h2>Projects</h2>
+      <p>Cyber anime creations & digital worlds</p>
+    </div>
+
+    <div class="projects-grid">
+
+      <div class="glass-card project-card fade">
+
+        <img src="images/pokemon game.png" alt="Pikachu Game">
+
+        <h3>Pikachu Game</h3>
+
+        <p>
+          Anime-inspired browser game with colorful effects,
+          futuristic gameplay, and immersive interactions.
+        </p>
+
+        <a href="pokemon fifa.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="images/portfolio web.png" alt="Creative Portfolio">
+
+        <h3>Creative Portfolio</h3>
+
+        <p>
+          Futuristic anime cyber portfolio with neon UI,
+          animations, and immersive digital aesthetics.
+        </p>
+
+        <a href="portfolio.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="images/art gallery.png" alt="Artwork Gallery">
+
+        <h3>Artwork Gallery</h3>
+
+        <p>
+          Interactive gallery showcasing anime illustrations,
+          digital artwork, and visual storytelling.
+        </p>
+
+        <a href="art portfolio.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="images/design portfolio.png" alt="Design Collection">
+
+        <h3>Design Collection</h3>
+
+        <p>
+          Creative collection of posters, anime inspired branding,
+          UI concepts, and social media visuals.
+        </p>
+
+        <a href="designs portfolio.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="images/Inventory System.png" alt="Inventory System">
+
+        <h3>Inventory System</h3>
+
+        <p>
+          Responsive full-stack management system with futuristic dashboard
+          and smooth UI interactions.
+        </p>
+
+        <a href="inventory system.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="https://images.unsplash.com/photo-1558655146-d09347e92766?q=80&w=1200&auto=format&fit=crop" alt="Branding Projects">
+
+        <h3>Branding Projects</h3>
+
+        <p>
+          Cyber anime inspired branding concepts with futuristic typography,
+          identity systems, and visual storytelling.
+        </p>
+
+        <a href="designs portfolio.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+      <div class="glass-card project-card fade">
+
+        <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?q=80&w=1200&auto=format&fit=crop" alt="Movie App">
+
+        <h3>Movie App</h3>
+
+        <p>
+          Stylish futuristic movie application with trailers,
+          ratings, trending movies, and modern UI.
+        </p>
+
+        <a href="movie app/home.html" class="btn primary-btn">
+          View Project
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- STATS -->
+
+  <section id="stats">
+
+    <div class="section-title fade">
+      <h2>Achievements</h2>
+      <p>Creative growth & futuristic imagination</p>
+    </div>
+
+    <div class="stats">
+
+      <div class="glass-card stat-card fade">
+        <h2>20+</h2>
+        <p>Projects</p>
+      </div>
+
+      <div class="glass-card stat-card fade">
+        <h2>10+</h2>
+        <p>Certificates</p>
+      </div>
+
+      <div class="glass-card stat-card fade">
+        <h2>3+</h2>
+        <p>Years Learning</p>
+      </div>
+
+      <div class="glass-card stat-card fade">
+        <h2>∞</h2>
+        <p>Creativity</p>
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <div class="section-title fade">
+      <h2>Contact Me</h2>
+      <p>Let's create futuristic anime experiences together</p>
+    </div>
+
+    <div class="glass-card contact-box fade">
+
+      <h3 style="font-size:2rem; color:#ff00aa;">
+        Ready To Collaborate
+      </h3>
+
+      <p style="margin-top:15px; color:#ccc; line-height:1.8;">
+        Available for freelance projects, cyber anime branding,
+        portfolio systems, UI/UX design, and full-stack development.
+      </p>
+
+      <div class="socials">
+
+        <a href="https://github.com/tracer66" target="_blank">
+          <i class="fab fa-github"></i>
+        </a>
+
+        <a href="https://linkedin.com/in/apoorwa666" target="_blank">
+          <i class="fab fa-linkedin"></i>
+        </a>
+
+        <a href="https://instagram.com/apoo_2006_" target="_blank">
+          <i class="fab fa-instagram"></i>
+        </a>
+
+        <a href="mailto:apoorwarathnayake@gmail.com">
+          <i class="fas fa-envelope"></i>
+        </a>
+
+      </div>
+
+    </div>
+
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    © 2026 Apoorwa • Cyber Anime Portfolio
+  </footer>
+
+  <!-- SCRIPT -->
+
+  <script>
+
+    const fades = document.querySelectorAll('.fade');
+
+    const observer = new IntersectionObserver((entries)=>{
+
+      entries.forEach((entry)=>{
+
+        if(entry.isIntersecting){
+          entry.target.classList.add('show');
+        }
+
+      });
+
+    },{threshold:0.2});
+
+    fades.forEach((fade)=>{
+      observer.observe(fade);
+    });
+
+  </script>
+
+</body>
+
+</html>

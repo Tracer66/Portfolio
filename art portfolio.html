@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+  <title>Apoorwa Art Portfolio</title>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="bg-black text-white overflow-x-hidden">
+
+<!-- HERO -->
+<section class="relative min-h-screen flex items-center justify-center px-6">
+
+  <div class="absolute inset-0 bg-gradient-to-br from-red-950 via-black to-zinc-900 opacity-95"></div>
+
+  <div class="relative z-10 text-center max-w-5xl">
+
+    <p class="uppercase tracking-[0.5em] text-red-500 text-sm mb-4">
+      Artist Portfolio
+    </p>
+
+    <h1 class="text-6xl md:text-8xl font-black tracking-tight leading-none">
+      APOORWA
+    </h1>
+
+    <h2 class="text-2xl md:text-4xl mt-4 text-zinc-300 font-light">
+      Drawing Dreams Into Reality
+    </h2>
+
+    <p class="mt-8 text-lg text-zinc-400 max-w-2xl mx-auto leading-relaxed">
+      A modern gallery showcasing anime-inspired artwork,
+      fantasy scenes, watercolor paintings, and illustrations.
+    </p>
+
+    <div class="mt-10 flex flex-wrap justify-center gap-5">
+
+      <a href="#gallery"
+        class="px-8 py-4 bg-red-700 hover:bg-red-600 rounded-2xl text-lg font-semibold transition-all shadow-2xl">
+        View Gallery
+      </a>
+
+      <button onclick="openContact()"
+        class="px-8 py-4 border border-zinc-700 hover:border-red-500 rounded-2xl">
+        Contact
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ADMIN BUTTON -->
+<div onclick="toggleAdmin(event)"
+  class="fixed right-0 top-1/2 -translate-y-1/2 bg-zinc-800 hover:bg-zinc-700 px-3 py-4 rounded-l-xl cursor-pointer z-50">
+  ⚙
+</div>
+
+<!-- ADMIN PANEL -->
+<div id="adminPanel"
+  class="fixed right-0 top-0 h-full w-80 bg-zinc-950 border-l border-zinc-800 transform translate-x-full transition-transform duration-300 z-50 p-6 overflow-y-auto">
+
+  <h2 class="text-2xl font-bold mb-6">
+    Admin Panel
+  </h2>
+
+  <!-- LOGIN -->
+  <div id="loginBox">
+
+    <input id="passwordInput"
+      type="password"
+      placeholder="Password"
+      class="w-full px-4 py-3 bg-black border border-zinc-700 rounded-xl mb-4"/>
+
+    <button onclick="loginAdmin()"
+      class="w-full bg-red-700 hover:bg-red-600 py-3 rounded-xl">
+      Login
+    </button>
+
+  </div>
+
+  <!-- ADMIN CONTROLS -->
+  <div id="adminControls" class="hidden">
+
+    <div id="dropZone"
+      class="border-2 border-dashed border-zinc-700 rounded-2xl p-6 text-center mb-5 hover:border-red-500 transition-all">
+
+      <p class="text-zinc-400">
+        Drag & Drop Images Here
+      </p>
+
+      <p class="text-sm text-zinc-600 mt-2">
+        Images replace artworks from Card 1 onwards
+      </p>
+
+      <button onclick="document.getElementById('uploadInput').click()"
+        class="mt-4 px-5 py-2 bg-red-700 rounded-xl hover:bg-red-600">
+        Upload Images
+      </button>
+
+    </div>
+
+    <div class="mt-6 p-4 bg-zinc-900 border border-zinc-800 rounded-2xl">
+      <h3 class="text-lg font-semibold mb-3">Clear Artwork Image</h3>
+      <p class="text-zinc-400 text-sm mb-3">Enter artwork number to clear only its image while keeping the card.</p>
+      <input id="deleteIdInput"
+        type="number"
+        min="1"
+        placeholder="Artwork #"
+        class="w-full px-4 py-3 bg-black border border-zinc-700 rounded-xl mb-3" />
+      <button onclick="clearArtworkImageById()"
+        class="w-full bg-red-700 hover:bg-red-600 py-3 rounded-xl">
+        Clear Image
+      </button>
+    </div>
+
+    <button onclick="logoutAdmin()"
+      class="w-full bg-zinc-800 hover:bg-zinc-700 py-3 rounded-xl mt-5">
+      Logout
+    </button>
+
+  </div>
+
+</div>
+
+<!-- FILE INPUT -->
+<input type="file"
+  id="uploadInput"
+  multiple
+  accept="image/*"
+  class="hidden">
+
+<!-- STATS -->
+<section class="py-20 px-6 bg-zinc-950 border-y border-zinc-800">
+
+  <div class="max-w-6xl mx-auto grid md:grid-cols-4 gap-8 text-center">
+
+    <div>
+      <h2 class="text-5xl font-bold text-red-500">60+</h2>
+      <p class="mt-2 text-zinc-400">Artworks</p>
+    </div>
+
+    <div>
+      <h2 class="text-5xl font-bold text-pink-500">20K+</h2>
+      <p class="mt-2 text-zinc-400">Views</p>
+    </div>
+
+    <div>
+      <h2 class="text-5xl font-bold text-orange-500">10K+</h2>
+      <p class="mt-2 text-zinc-400">Likes</p>
+    </div>
+
+    <div>
+      <h2 class="text-5xl font-bold text-purple-500">100%</h2>
+      <p class="mt-2 text-zinc-400">Creativity</p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- GALLERY -->
+<section id="gallery" class="py-24 px-6">
+
+  <div class="max-w-7xl mx-auto">
+
+    <div class="text-center mb-16">
+
+      <p class="uppercase tracking-[0.4em] text-red-500 text-sm">
+        Portfolio Gallery
+      </p>
+
+      <h2 class="text-5xl font-bold mt-4">
+        Featured Artworks
+      </h2>
+
+    </div>
+
+    <div id="galleryGrid"
+      class="grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+    </div>
+
+    <!-- LOAD BUTTON -->
+    <div class="text-center mt-14">
+
+      <button id="loadBtn"
+        onclick="loadAllArtworks()"
+        class="px-8 py-4 bg-zinc-800 hover:bg-zinc-700 border border-zinc-700 rounded-2xl text-lg transition-all">
+        Load All Artworks
+      </button>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section class="py-24 px-6 bg-zinc-950">
+
+  <div class="max-w-6xl mx-auto text-center">
+
+    <p class="uppercase tracking-[0.4em] text-red-500 text-sm">
+      About My Art
+    </p>
+
+    <h2 class="text-5xl font-bold mt-4">
+      Creative Expression Through Art
+    </h2>
+
+    <p class="text-zinc-400 mt-8 max-w-3xl mx-auto text-lg leading-relaxed">
+      My artwork blends imagination, emotion, and storytelling.
+      Inspired by anime aesthetics, fantasy worlds,
+      Japanese scenery, and watercolor styles.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="py-24 px-6 text-center">
+
+  <h2 class="text-5xl font-bold">
+    Let’s Work Together
+  </h2>
+
+  <p class="text-zinc-400 mt-6 max-w-2xl mx-auto text-lg">
+    Open for commissions, collaborations,
+    and creative opportunities.
+  </p>
+
+</section>
+
+<!-- IMAGE VIEWER -->
+<div id="viewer"
+  class="hidden fixed inset-0 bg-black/95 flex items-center justify-center z-[999]">
+
+  <!-- CLOSE -->
+  <button onclick="closeViewer()"
+    class="absolute top-6 right-6 text-white text-4xl font-bold z-50">
+    ✕
+  </button>
+
+  <!-- PREVIOUS -->
+  <button onclick="prevImage()"
+    class="absolute left-4 md:left-10 text-white text-5xl z-50 hover:text-red-500 transition-all">
+    ‹
+  </button>
+
+  <!-- NEXT -->
+  <button onclick="nextImage()"
+    class="absolute right-4 md:right-10 text-white text-5xl z-50 hover:text-red-500 transition-all">
+    ›
+  </button>
+
+  <img id="viewerImg"
+    class="max-w-[92%] max-h-[90%] rounded-2xl shadow-2xl border border-zinc-700 object-contain transition-all duration-300"/>
+
+</div>
+
+<!-- CONTACT MODAL -->
+<div id="contactModal"
+  class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50">
+
+  <div class="bg-zinc-900 border border-zinc-700 rounded-2xl p-8 w-96 text-center">
+
+    <h2 class="text-3xl font-bold mb-6">
+      Contact Me
+    </h2>
+
+    <div class="space-y-4">
+
+      <a href="https://www.instagram.com/_tracer85._/"
+        target="_blank"
+        class="block px-6 py-3 bg-pink-600 rounded-xl">
+        Instagram
+      </a>
+
+      <a href="https://wa.me/0757211800"
+        target="_blank"
+        class="block px-6 py-3 bg-green-600 rounded-xl">
+        WhatsApp
+      </a>
+
+      <a href="mailto:apoorwarathnayake@gmail.com"
+        class="block px-6 py-3 bg-blue-600 rounded-xl">
+        Gmail
+      </a>
+
+    </div>
+
+    <button onclick="closeContact()"
+      class="mt-6 text-zinc-400 hover:text-white">
+      Close
+    </button>
+
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="text-center py-8 text-zinc-500 border-t border-zinc-800">
+  © 2026 APOORWA
+</footer>
+
+<script>
+const grid = document.getElementById("galleryGrid");
+const adminPanel = document.getElementById("adminPanel");
+const loginBox = document.getElementById("loginBox");
+const adminControls = document.getElementById("adminControls");
+const viewer = document.getElementById("viewer");
+const viewerImg = document.getElementById("viewerImg");
+const contactModal = document.getElementById("contactModal");
+
+const ADMIN_PASSWORD = "tracer85";
+
+let currentIndex = 0;
+let showAll = false;
+let artworks = [];
+let db;
+
+/* DATABASE */
+const request = indexedDB.open("ApoorwaPortfolioDB", 1);
+
+request.onupgradeneeded = function(event) {
+
+  db = event.target.result;
+
+  if (!db.objectStoreNames.contains("artworks")) {
+
+    db.createObjectStore("artworks", {
+      keyPath: "id"
+    });
+
+  }
+
+};
+
+request.onsuccess = function(event) {
+
+  db = event.target.result;
+
+  loadArtworks();
+};
+
+request.onerror = function() {
+
+  alert("Database failed to load.");
+
+};
+
+/* LOAD ARTWORKS */
+function loadArtworks() {
+
+  const transaction =
+    db.transaction(["artworks"], "readonly");
+
+  const store =
+    transaction.objectStore("artworks");
+
+  const getRequest =
+    store.getAll();
+
+  getRequest.onsuccess = function() {
+
+    if (getRequest.result.length === 0) {
+
+      createDefaultArtworks();
+
+    } else {
+
+      artworks = getRequest.result.sort((a, b) => a.id - b.id);
+
+      renderGallery();
+
+    }
+
+  };
+
+}
+
+/* CREATE 60 DEFAULT ARTWORKS */
+function createDefaultArtworks() {
+
+  artworks = [];
+
+  for (let i = 1; i <= 60; i++) {
+
+    artworks.push({
+
+      id: i,
+      src: `images/art${i}.jpg`,
+      type: "Artwork Collection",
+      title: `Artwork ${i}`
+
+    });
+
+  }
+
+  saveAllArtworks();
+
+  renderGallery();
+
+}
+
+/* SAVE */
+function saveAllArtworks() {
+
+  const transaction =
+    db.transaction(["artworks"], "readwrite");
+
+  const store =
+    transaction.objectStore("artworks");
+
+  artworks.forEach(art => {
+
+    store.put(art);
+
+  });
+
+}
+
+/* RENDER */
+function renderGallery() {
+
+  grid.innerHTML = "";
+
+  let displayArtworks = [];
+
+  if (showAll) {
+
+    displayArtworks = artworks;
+
+  } else {
+
+    displayArtworks = artworks.slice(0, 4);
+
+  }
+
+  displayArtworks.forEach((art, index) => {
+
+    const realIndex = showAll ? index : index;
+
+    const card = document.createElement("div");
+
+    card.className =
+      "group bg-zinc-900 rounded-3xl overflow-hidden border border-zinc-800 hover:border-red-500 transition-all";
+
+    card.innerHTML = `
+
+      <div class="overflow-hidden h-96 ${art.src ? 'cursor-pointer' : ''}">
+
+        ${art.src ? `
+        <img src="${art.src}"
+          class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"/>
+        ` : `
+        <div class="w-full h-full bg-zinc-950 border border-zinc-800 flex items-center justify-center text-zinc-500 text-sm uppercase tracking-[0.2em]">
+          No image available
+        </div>
+        `}
+
+      </div>
+
+      <div class="p-6">
+
+        ${
+          localStorage.getItem("isAdmin") === "true"
+          ? `
+            <input
+              value="${art.type}"
+              onchange="editArtwork(${realIndex}, 'type', this.value)"
+              class="w-full bg-black border border-zinc-700 rounded-lg px-3 py-2 text-red-500 text-sm uppercase mb-3"
+            />
+
+            <input
+              value="${art.title}"
+              onchange="editArtwork(${realIndex}, 'title', this.value)"
+              class="w-full bg-black border border-zinc-700 rounded-lg px-3 py-2 text-white font-bold"
+            />
+
+            <button onclick="replaceArtwork(${realIndex})"
+              class="mt-4 w-full bg-red-700 hover:bg-red-600 py-2 rounded-xl">
+              Upload / Replace Image
+            </button>
+
+            <button onclick="clearArtworkImage(${realIndex})"
+              class="mt-3 w-full bg-zinc-800 hover:bg-zinc-700 py-2 rounded-xl text-sm">
+              Clear Image
+            </button>
+          `
+          : `
+            <p class="text-red-500 text-sm uppercase">
+              ${art.type}
+            </p>
+
+            <h3 class="text-xl font-bold mt-2">
+              ${art.title}
+            </h3>
+          `
+        }
+
+      </div>
+    `;
+
+    const previewImg = card.querySelector("img");
+    if (previewImg) {
+      previewImg.addEventListener("click", () => openViewer(realIndex));
+    }
+
+    grid.appendChild(card);
+
+  });
+
+}
+
+/* LOAD ALL */
+function loadAllArtworks() {
+
+  showAll = true;
+
+  renderGallery();
+
+  document.getElementById("loadBtn").style.display = "none";
+
+}
+
+/* EDIT */
+function editArtwork(index, field, value) {
+
+  artworks[index][field] = value;
+
+  saveAllArtworks();
+
+}
+
+/* REPLACE IMAGE */
+function replaceArtwork(index) {
+
+  const input = document.createElement("input");
+
+  input.type = "file";
+  input.accept = "image/*";
+
+  input.onchange = function(e) {
+
+    const file = e.target.files[0];
+
+    if (!file) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      artworks[index].src = event.target.result;
+
+      saveAllArtworks();
+
+      renderGallery();
+
+    };
+
+    reader.readAsDataURL(file);
+
+  };
+
+  input.click();
+
+}
+
+function clearArtworkImage(index) {
+  const art = artworks[index];
+  if (!art) return;
+  const confirmed = confirm(`Clear image for ${art.title} (#${art.id})?`);
+  if (!confirmed) return;
+  art.src = "";
+  saveAllArtworks();
+  renderGallery();
+}
+
+function clearArtworkImageById() {
+  const id = Number(document.getElementById('deleteIdInput').value);
+  if (!id) return alert('Enter a valid artwork number.');
+  const index = artworks.findIndex((art) => art.id === id);
+  if (index === -1) return alert(`No artwork found with number ${id}.`);
+  clearArtworkImage(index);
+}
+
+/* DRAG DROP */
+const dropZone = document.getElementById("dropZone");
+
+dropZone.addEventListener("dragover", (e) => {
+
+  e.preventDefault();
+
+  dropZone.classList.add("border-red-500");
+
+});
+
+dropZone.addEventListener("dragleave", () => {
+
+  dropZone.classList.remove("border-red-500");
+
+});
+
+dropZone.addEventListener("drop", (e) => {
+
+  e.preventDefault();
+
+  dropZone.classList.remove("border-red-500");
+
+  const files = [...e.dataTransfer.files];
+
+  files.forEach((file, index) => {
+
+    if (index >= artworks.length) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function(event) {
+
+      artworks[index].src = event.target.result;
+
+      saveAllArtworks();
+
+      renderGallery();
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+});
+
+/* FILE INPUT */
+document.getElementById("uploadInput")
+  .addEventListener("change", (e) => {
+
+    const files = [...e.target.files];
+
+    files.forEach((file, index) => {
+
+      if (index >= artworks.length) return;
+
+      const reader = new FileReader();
+
+      reader.onload = function(event) {
+
+        artworks[index].src = event.target.result;
+
+        saveAllArtworks();
+
+        renderGallery();
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+});
+
+/* VIEWER */
+function openViewer(index) {
+
+  currentIndex = index;
+
+  viewerImg.src = artworks[currentIndex].src;
+
+  viewer.classList.remove("hidden");
+
+}
+
+/* NEXT */
+function nextImage() {
+
+  currentIndex++;
+
+  if (currentIndex >= artworks.length) {
+    currentIndex = 0;
+  }
+
+  viewerImg.src = artworks[currentIndex].src;
+
+}
+
+/* PREVIOUS */
+function prevImage() {
+
+  currentIndex--;
+
+  if (currentIndex < 0) {
+    currentIndex = artworks.length - 1;
+  }
+
+  viewerImg.src = artworks[currentIndex].src;
+
+}
+
+/* CLOSE VIEWER */
+function closeViewer() {
+
+  viewer.classList.add("hidden");
+
+  viewerImg.src = "";
+
+}
+
+/* KEYBOARD */
+document.addEventListener("keydown", (e) => {
+
+  if (viewer.classList.contains("hidden")) return;
+
+  if (e.key === "ArrowRight") {
+    nextImage();
+  }
+
+  if (e.key === "ArrowLeft") {
+    prevImage();
+  }
+
+  if (e.key === "Escape") {
+    closeViewer();
+  }
+
+});
+
+/* CLICK OUTSIDE CLOSE */
+viewer.addEventListener("click", (e) => {
+
+  if (e.target === viewer) {
+    closeViewer();
+  }
+
+});
+
+/* CONTACT */
+function openContact() {
+  contactModal.classList.remove("hidden");
+}
+
+function closeContact() {
+  contactModal.classList.add("hidden");
+}
+
+/* ADMIN */
+function toggleAdmin(event) {
+
+  event.stopPropagation();
+
+  adminPanel.classList.toggle("translate-x-full");
+
+}
+
+/* OUTSIDE CLICK */
+document.addEventListener("click", function(e) {
+
+  const clickedPanel =
+    adminPanel.contains(e.target);
+
+  const clickedToggle =
+    e.target.closest(".fixed.right-0");
+
+  if (!clickedPanel && !clickedToggle) {
+
+    adminPanel.classList.add("translate-x-full");
+
+  }
+
+});
+
+/* LOGIN */
+function loginAdmin() {
+
+  const pass =
+    document.getElementById("passwordInput").value;
+
+  if (pass === ADMIN_PASSWORD) {
+
+    localStorage.setItem("isAdmin", "true");
+
+    activateAdmin();
+
+    renderGallery();
+
+  } else {
+
+    alert("Wrong password!");
+
+  }
+
+}
+
+/* LOGOUT */
+function logoutAdmin() {
+
+  localStorage.removeItem("isAdmin");
+
+  deactivateAdmin();
+
+  renderGallery();
+
+}
+
+/* ADMIN UI */
+function activateAdmin() {
+
+  loginBox.classList.add("hidden");
+
+  adminControls.classList.remove("hidden");
+
+}
+
+function deactivateAdmin() {
+
+  loginBox.classList.remove("hidden");
+
+  adminControls.classList.add("hidden");
+
+}
+
+/* SESSION */
+if (localStorage.getItem("isAdmin") === "true") {
+
+  activateAdmin();
+
+}
+</script>
+
+</body>
+</html>
