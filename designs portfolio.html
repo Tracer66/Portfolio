@@ -1924,19 +1924,33 @@ return !String(item.id || "").startsWith("default-");
 function normalizeDesignText(value){
 return String(value || "")
 .toLowerCase()
+.replace(/^data:image\/[^;]+;base64,/, "")
 .replace(/\.[a-z0-9]+$/i, "")
+.replace(/^\d{4}\s+/, "")
 .replace(/[^a-z0-9]+/g, " ")
 .trim();
 }
 
+function getFileNameFromPath(value){
+return String(value || "")
+.split(/[\\/]/)
+.pop();
+}
+
 function getDesignDuplicateKeys(item){
-const imageKey = normalizeDesignText(item.img);
+const imagePath = String(item.img || "");
+const isEmbeddedImage = imagePath.startsWith("data:image/");
+const imageKey = isEmbeddedImage ? "" : normalizeDesignText(getFileNameFromPath(imagePath));
+const sourceKey = normalizeDesignText(item.sourceName || item.fileName || item.originalName);
 const titleKey = normalizeDesignText(item.title);
 const categoryKey = normalizeDesignText(item.category);
+const nameKeys = [imageKey, sourceKey, titleKey].filter(Boolean);
 
 return [
 imageKey ? `image:${imageKey}` : "",
-titleKey && categoryKey ? `title:${categoryKey}:${titleKey}` : ""
+sourceKey ? `source:${sourceKey}` : "",
+...nameKeys.map(nameKey => `name:${nameKey}`),
+...nameKeys.map(nameKey => categoryKey ? `category:${categoryKey}:${nameKey}` : "")
 ].filter(Boolean);
 }
 
@@ -2006,9 +2020,14 @@ return normalizeDesignOrder(dedupeDesigns([
 async function loadDB(){
 try{
 const indexedItems = await readIndexedDB();
-db = indexedItems.length
-? mergeStoredDesigns(indexedItems)
-: normalizeDesignOrder(DEFAULT_DESIGNS);
+if(indexedItems.length){
+db = mergeStoredDesigns(indexedItems);
+if(db.length !== indexedItems.length){
+saveDB();
+}
+}else{
+db = normalizeDesignOrder(DEFAULT_DESIGNS);
+}
 }catch(error){
 db = normalizeDesignOrder(DEFAULT_DESIGNS);
 }
@@ -2154,6 +2173,8 @@ id:createDesignId(),
 img:imageData,
 
 title:title,
+
+sourceName:file.name,
 
 category:category,
 
