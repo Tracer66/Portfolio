@@ -1921,6 +1921,55 @@ function isUploadedDesign(item){
 return !String(item.id || "").startsWith("default-");
 }
 
+function normalizeDesignText(value){
+return String(value || "")
+.toLowerCase()
+.replace(/^data:image\/[^;]+;base64,/, "")
+.replace(/\.[a-z0-9]+$/i, "")
+.replace(/^\d{4}\s+/, "")
+.replace(/[^a-z0-9]+/g, " ")
+.trim();
+}
+
+function getFileNameFromPath(value){
+return String(value || "")
+.split(/[\\/]/)
+.pop();
+}
+
+function getDesignDuplicateKeys(item){
+const imagePath = String(item.img || "");
+const isEmbeddedImage = imagePath.startsWith("data:image/");
+const imageKey = isEmbeddedImage ? "" : normalizeDesignText(getFileNameFromPath(imagePath));
+const sourceKey = normalizeDesignText(item.sourceName || item.fileName || item.originalName);
+const titleKey = normalizeDesignText(item.title);
+const categoryKey = normalizeDesignText(item.category);
+const nameKeys = [imageKey, sourceKey, titleKey].filter(Boolean);
+
+return [
+imageKey ? `image:${imageKey}` : "",
+sourceKey ? `source:${sourceKey}` : "",
+...nameKeys.map(nameKey => `name:${nameKey}`),
+...nameKeys.map(nameKey => categoryKey ? `category:${categoryKey}:${nameKey}` : "")
+].filter(Boolean);
+}
+
+function dedupeDesigns(items){
+const seen = new Set();
+
+return items.filter(item => {
+const keys = getDesignDuplicateKeys(item);
+const isDuplicate = keys.some(key => seen.has(key));
+
+if(isDuplicate){
+return false;
+}
+
+keys.forEach(key => seen.add(key));
+return true;
+});
+}
+
 function setActiveCategoryButton(category){
 document
 .querySelectorAll(".category-buttons button")
@@ -1962,6 +2011,10 @@ const bundledDesigns = DEFAULT_DESIGNS.map(defaultItem => ({
 
 const uploadedDesigns = indexedItems.filter(item => isUploadedDesign(item));
 
+return normalizeDesignOrder(dedupeDesigns([
+...bundledDesigns,
+...uploadedDesigns
+]));
 return normalizeDesignOrder([
 ...bundledDesigns,
 ...uploadedDesigns
@@ -1971,6 +2024,14 @@ return normalizeDesignOrder([
 async function loadDB(){
 try{
 const indexedItems = await readIndexedDB();
+if(indexedItems.length){
+db = mergeStoredDesigns(indexedItems);
+if(db.length !== indexedItems.length){
+saveDB();
+}
+}else{
+db = normalizeDesignOrder(DEFAULT_DESIGNS);
+}
 db = indexedItems.length
 ? mergeStoredDesigns(indexedItems)
 : normalizeDesignOrder(DEFAULT_DESIGNS);
@@ -2111,13 +2172,16 @@ const category = currentUploadCategory === "all"
   ? "poster"
   : currentUploadCategory;
 
-db.push({
+const title = file.name.split(".")[0];
+const incomingDesign = {
 
 id:createDesignId(),
 
 img:imageData,
 
-title:file.name.split(".")[0],
+title:title,
+
+sourceName:file.name,
 
 category:category,
 
@@ -2128,7 +2192,19 @@ order:getNextOrder(),
 description:
 "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
 
-});
+};
+
+const incomingKeys = getDesignDuplicateKeys(incomingDesign);
+const alreadyExists = db.some(item =>
+incomingKeys.some(key => getDesignDuplicateKeys(item).includes(key))
+);
+
+if(alreadyExists){
+showSaveFeedback("That design is already in the gallery");
+continue;
+}
+
+db.push(incomingDesign);
 
 saveDB();
 
@@ -2171,7 +2247,7 @@ document.getElementById("posterGrid");
 
 grid.innerHTML = "";
 
-const visibleItems = getVisibleItems(filter);
+const visibleItems = dedupeDesigns(getVisibleItems(filter));
 currentLightboxItems = visibleItems;
 
 visibleItems.forEach((item, index) => {
