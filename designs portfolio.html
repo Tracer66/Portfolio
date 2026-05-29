@@ -2015,6 +2015,10 @@ return normalizeDesignOrder(dedupeDesigns([
 ...bundledDesigns,
 ...uploadedDesigns
 ]));
+return normalizeDesignOrder([
+...bundledDesigns,
+...uploadedDesigns
+]);
 }
 
 async function loadDB(){
@@ -2028,6 +2032,9 @@ saveDB();
 }else{
 db = normalizeDesignOrder(DEFAULT_DESIGNS);
 }
+db = indexedItems.length
+? mergeStoredDesigns(indexedItems)
+: normalizeDesignOrder(DEFAULT_DESIGNS);
 }catch(error){
 db = normalizeDesignOrder(DEFAULT_DESIGNS);
 }
