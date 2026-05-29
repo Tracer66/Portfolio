@@ -1067,7 +1067,7 @@ Add Local Designs Here
 </h3>
 
 <p>
-Only visible after admin login. Images selected here are saved in this browser only; designs that must appear on every device are loaded from the creations folder in the code.
+Only visible after admin login. Browser uploads are saved on this device only; to show designs on every device, add the image file to the creations folder and list it in DEFAULT_DESIGNS.
 </p>
 
 <p id="uploadTarget">
@@ -2011,37 +2011,35 @@ uploadZone.classList.remove("upload-visible");
 }
 }
 
-function mergeStoredDesigns(indexedItems){
-const storedById = new Map(
-indexedItems.map(item => [String(item.id), item])
+function getSavedUploads(indexedItems){
+return indexedItems.filter(isUploadedDesign);
+}
+
+function mergePortfolioDesigns(indexedItems){
+const savedUploads = getSavedUploads(indexedItems);
+const savedDefaultsByImage = new Map(
+indexedItems
+.filter(item => !isUploadedDesign(item))
+.map(item => [item.img, item])
 );
 
-const bundledDesigns = DEFAULT_DESIGNS.map(defaultItem => ({
+const syncedDefaults = DEFAULT_DESIGNS.map(defaultItem => ({
 ...defaultItem,
-...(storedById.get(String(defaultItem.id)) || {})
+...(savedDefaultsByImage.get(defaultItem.img) || {}),
+id:defaultItem.id,
+img:defaultItem.img
 }));
 
-const uploadedDesigns = indexedItems.filter(item => isUploadedDesign(item));
-
-return normalizeDesignOrder(dedupeDesigns([
-...bundledDesigns,
-...uploadedDesigns
-]));
+return normalizeDesignOrder([
+...syncedDefaults,
+...savedUploads
+]);
 }
 
 async function loadDB(){
 try{
 const indexedItems = await readIndexedDB();
-if(indexedItems.length){
-db = mergeStoredDesigns(indexedItems);
-const storedUploads = getStoredUploads();
-const hasStoredBundledDesigns = indexedItems.some(item => !isUploadedDesign(item));
-if(hasStoredBundledDesigns || getStoredUploadSignature(storedUploads) !== getStoredUploadSignature(indexedItems)){
-writeIndexedDB(storedUploads).catch(() => {});
-}
-}else{
-db = normalizeDesignOrder(DEFAULT_DESIGNS);
-}
+db = mergePortfolioDesigns(indexedItems);
 }catch(error){
 db = normalizeDesignOrder(DEFAULT_DESIGNS);
 }
