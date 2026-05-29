@@ -313,7 +313,10 @@ DASHBOARD
     margin-bottom:25px;
 }
 
-.dashboard-card button{
+.dashboard-card button,
+.dashboard-card a{
+    display:inline-block;
+    text-decoration:none;
     padding:12px 24px;
 
     border:none;
@@ -964,9 +967,9 @@ anime visuals,
 creative artwork collections.
 </p>
 
-<button onclick="openCategory('poster')">
+<a href="#gallery" onclick="openCategory('poster')">
 Explore Posters
-</button>
+</a>
 
 </div>
 
@@ -986,9 +989,9 @@ concert visuals,
 creative event banners.
 </p>
 
-<button onclick="openCategory('event')">
+<a href="#gallery" onclick="openCategory('event')">
 Explore Events
-</button>
+</a>
 
 </div>
 
@@ -1008,9 +1011,9 @@ logo systems,
 modern visual identities.
 </p>
 
-<button onclick="openCategory('brand')">
+<a href="#gallery" onclick="openCategory('brand')">
 Explore Branding
-</button>
+</a>
 
 </div>
 
@@ -1060,11 +1063,11 @@ Brands
 <div class="upload-zone" id="uploadZone">
 
 <h3>
-Drop Designs Here
+Add Local Designs Here
 </h3>
 
 <p>
-Only visible after admin login. Uploads follow the currently selected gallery category.
+Only visible after admin login. Images selected here are saved in this browser only; designs that must appear on every device are loaded from the creations folder in the code.
 </p>
 
 <p id="uploadTarget">
@@ -1239,41 +1242,566 @@ brand: 3
 };
 
 const DEFAULT_DESIGNS = [
-{ id:"default-1", img:"creations/1.png", title:"Design 1", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-2", img:"creations/2.jpg", title:"Design 2", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-3", img:"creations/2.png", title:"Design 2 Variant", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-4", img:"creations/3.jpg", title:"Design 3", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-5", img:"creations/3.png", title:"Design 3 Variant", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-6", img:"creations/4.jpg", title:"Design 4", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-7", img:"creations/5.jpg", title:"Design 5", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-8", img:"creations/6.jpg", title:"Design 6", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-9", img:"creations/7.jpg", title:"Design 7", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-10", img:"creations/8.jpg", title:"Design 8", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-11", img:"creations/9.jpg", title:"Design 9", category:"poster", description:"Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition." },
-{ id:"default-12", img:"creations/Anime birthday image.png", title:"Anime Birthday Image", category:"event", description:"Creative event artwork designed with anime-inspired visual storytelling." },
-{ id:"default-13", img:"creations/Anime New Year greet.png", title:"Anime New Year Greeting", category:"event", description:"Seasonal greeting design with a bright anime-inspired composition." },
-{ id:"default-14", img:"creations/Anime-style Sinhala .png", title:"Anime Style Sinhala", category:"poster", description:"Creative poster artwork with Sinhala-inspired styling and cinematic composition." },
-{ id:"default-15", img:"creations/beyond destiny.png", title:"Beyond Destiny", category:"poster", description:"Dark cinematic poster artwork with dramatic visual storytelling." },
-{ id:"default-16", img:"creations/dp 1.png", title:"DP Design 1", category:"brand", description:"Profile and identity design concept for digital branding." },
-{ id:"default-17", img:"creations/dp2.png", title:"DP Design 2", category:"brand", description:"Profile and identity design concept for digital branding." },
-{ id:"default-18", img:"creations/dp3.png", title:"DP Design 3", category:"brand", description:"Profile and identity design concept for digital branding." },
-{ id:"default-19", img:"creations/elenora 25-1.jpg", title:"Elenora 25-1", category:"event", description:"Event visual design with a bold cinematic presentation." },
-{ id:"default-20", img:"creations/elenora25-2.jpg", title:"Elenora 25-2", category:"event", description:"Event visual design with a bold cinematic presentation." },
-{ id:"default-21", img:"creations/elenora25.jpg", title:"Elenora 25", category:"event", description:"Event visual design with a bold cinematic presentation." },
-{ id:"default-22", img:"creations/flotrancia'24-1.png", title:"Flotrancia 24-1", category:"event", description:"Event poster design with vibrant visual storytelling." },
-{ id:"default-23", img:"creations/flotrancia'24-2.png", title:"Flotrancia 24-2", category:"event", description:"Event poster design with vibrant visual storytelling." },
-{ id:"default-24", img:"creations/flotrancia'24-3.png", title:"Flotrancia 24-3", category:"event", description:"Event poster design with vibrant visual storytelling." },
-{ id:"default-25", img:"creations/hidden love.png", title:"Hidden Love", category:"poster", description:"Cinematic poster artwork with emotional visual storytelling." },
-{ id:"default-26", img:"creations/Lonely Freedom.png", title:"Lonely Freedom", category:"poster", description:"Creative dark aesthetic poster artwork with expressive composition." },
-{ id:"default-27", img:"creations/Sinhala and Tamil Ne 2.png", title:"Sinhala And Tamil New Year 2", category:"event", description:"Seasonal event greeting design for Sinhala and Tamil New Year." },
-{ id:"default-28", img:"creations/Sinhala Tamil New Ye.png", title:"Sinhala Tamil New Year", category:"event", description:"Seasonal event greeting design for Sinhala and Tamil New Year." },
-{ id:"default-29", img:"creations/smile in pain 1.png", title:"Smile In Pain 1", category:"poster", description:"Expressive poster artwork with a dark emotional tone." },
-{ id:"default-30", img:"creations/smile in pain 2.png", title:"Smile In Pain 2", category:"poster", description:"Expressive poster artwork with a dark emotional tone." },
-{ id:"default-31", img:"creations/twinking eyes 1.png", title:"Twinkling Eyes 1", category:"poster", description:"Creative poster design with glowing cinematic detail." },
-{ id:"default-32", img:"creations/twinkling eyes 2.png", title:"Twinkling Eyes 2", category:"poster", description:"Creative poster design with glowing cinematic detail." },
-{ id:"default-33", img:"creations/world scout day 26-1.jpeg", title:"World Scout Day 26-1", category:"event", description:"Event design created for World Scout Day." },
-{ id:"default-34", img:"creations/world scout day 26-2.png", title:"World Scout Day 26-2", category:"event", description:"Event design created for World Scout Day." },
-{ id:"default-35", img:"creations/world scout day 26-3.png", title:"World Scout Day 26-3", category:"event", description:"Event design created for World Scout Day." }
+  {
+    "id": "default-2024-new-year-wish",
+    "img": "creations/2024 new year wish.jpeg",
+    "title": "2024 New Year Wish",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-1",
+    "img": "creations/2024 new year wishes 1.jpeg",
+    "title": "2024 New Year Wishes 1",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-10",
+    "img": "creations/2024 new year wishes 10.jpeg",
+    "title": "2024 New Year Wishes 10",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-2",
+    "img": "creations/2024 new year wishes 2.jpeg",
+    "title": "2024 New Year Wishes 2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-3",
+    "img": "creations/2024 new year wishes 3.jpeg",
+    "title": "2024 New Year Wishes 3",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-4",
+    "img": "creations/2024 new year wishes 4.jpeg",
+    "title": "2024 New Year Wishes 4",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-5",
+    "img": "creations/2024 new year wishes 5.jpeg",
+    "title": "2024 New Year Wishes 5",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-6",
+    "img": "creations/2024 new year wishes 6.jpeg",
+    "title": "2024 New Year Wishes 6",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-7",
+    "img": "creations/2024 new year wishes 7.jpeg",
+    "title": "2024 New Year Wishes 7",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-8",
+    "img": "creations/2024 new year wishes 8.jpeg",
+    "title": "2024 New Year Wishes 8",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2024-new-year-wishes-9",
+    "img": "creations/2024 new year wishes 9.jpeg",
+    "title": "2024 New Year Wishes 9",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2026-anime-new-year-greet",
+    "img": "creations/2026 Anime New Year greet.png",
+    "title": "2026 Anime New Year Greet",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-2026-anime-style-sinhala-tamil-new-year-wishes",
+    "img": "creations/2026 Anime-style Sinhala &  Tamil New year wishes .png",
+    "title": "2026 Anime-style Sinhala & Tamil New Year Wishes",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-angry-birds",
+    "img": "creations/angry birds.png",
+    "title": "Angry Birds",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-angry",
+    "img": "creations/angry.png",
+    "title": "Angry",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-beyond-destiny",
+    "img": "creations/beyond destiny.png",
+    "title": "Beyond Destiny",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-custom-design-mug-3",
+    "img": "creations/custom design mug 3.jpg",
+    "title": "Custom Design Mug 3",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-custom-design-mugs-2",
+    "img": "creations/custom design mugs 2.jpg",
+    "title": "Custom Design Mugs 2",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-mug-design-1jpg",
+    "img": "creations/customized mug design 1jpg",
+    "title": "Customized Mug Design 1jpg",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-pin-badges-design-1",
+    "img": "creations/customized pin badges design 1.jpg",
+    "title": "Customized Pin Badges Design 1",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-pin-badges-design-2",
+    "img": "creations/customized pin badges design 2.jpg",
+    "title": "Customized Pin Badges Design 2",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-t-shirt-poster-design",
+    "img": "creations/customized t shirt poster design.jpg",
+    "title": "Customized T Shirt Poster Design",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-tumbler-design-poster-1",
+    "img": "creations/customized tumbler design poster 1.jpg",
+    "title": "Customized Tumbler Design Poster 1",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-customized-tumbler-design-poster-2",
+    "img": "creations/customized tumbler design poster 2.jpg",
+    "title": "Customized Tumbler Design Poster 2",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-devotia-ticket-1",
+    "img": "creations/devotia ticket 1.png",
+    "title": "Devotia Ticket 1",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-devotia-ticket-2",
+    "img": "creations/devotia ticket 2.png",
+    "title": "Devotia Ticket 2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-dp-1",
+    "img": "creations/dp 1.png",
+    "title": "DP 1",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-dp2",
+    "img": "creations/dp2.png",
+    "title": "Dp2",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-dp3",
+    "img": "creations/dp3.png",
+    "title": "Dp3",
+    "category": "brand",
+    "description": "Branding and product identity design concept with a polished promotional presentation."
+  },
+  {
+    "id": "default-elenora-25-1",
+    "img": "creations/elenora 25-1.jpg",
+    "title": "Elenora 25-1",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-elenora25-2",
+    "img": "creations/elenora25-2.jpg",
+    "title": "Elenora25-2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-elenora25",
+    "img": "creations/elenora25.jpg",
+    "title": "Elenora25",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-flotrancia-24-1",
+    "img": "creations/flotrancia'24-1.png",
+    "title": "Flotrancia'24-1",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-flotrancia-24-2",
+    "img": "creations/flotrancia'24-2.png",
+    "title": "Flotrancia'24-2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-flotrancia-24-3",
+    "img": "creations/flotrancia'24-3.png",
+    "title": "Flotrancia'24-3",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-hidden-love",
+    "img": "creations/hidden love.png",
+    "title": "Hidden Love",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lonely-freedom",
+    "img": "creations/Lonely Freedom.png",
+    "title": "Lonely Freedom",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy-1",
+    "img": "creations/lost boy 1.jpeg",
+    "title": "Lost Boy 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy-2",
+    "img": "creations/lost boy 2.jpeg",
+    "title": "Lost Boy 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy-3",
+    "img": "creations/lost boy 3.jpeg",
+    "title": "Lost Boy 3",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy-v01",
+    "img": "creations/lost boy v01.jpeg",
+    "title": "Lost Boy V01",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy-v02",
+    "img": "creations/lost boy v02.jpeg",
+    "title": "Lost Boy V02",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-lost-boy",
+    "img": "creations/lost boy.jpeg",
+    "title": "Lost Boy",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-mafia-boss-2",
+    "img": "creations/mafia boss 2.jpeg",
+    "title": "Mafia Boss 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-mafia-boss-3",
+    "img": "creations/mafia boss 3.jpeg",
+    "title": "Mafia Boss 3",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-mafia-boss-4",
+    "img": "creations/mafia boss 4.jpeg",
+    "title": "Mafia Boss 4",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-mafia-boss-6",
+    "img": "creations/mafia boss 6.jpeg",
+    "title": "Mafia Boss 6",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-mafia-boss",
+    "img": "creations/mafia boss.jpeg",
+    "title": "Mafia Boss",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy-1",
+    "img": "creations/misterious boy 1.jpg",
+    "title": "Misterious Boy 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy-2",
+    "img": "creations/misterious boy 2.jpg",
+    "title": "Misterious Boy 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy-4",
+    "img": "creations/misterious boy 4.jpg",
+    "title": "Misterious Boy 4",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy-6",
+    "img": "creations/misterious boy 6.jpg",
+    "title": "Misterious Boy 6",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy-7",
+    "img": "creations/misterious boy 7.jpg",
+    "title": "Misterious Boy 7",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-misterious-boy",
+    "img": "creations/misterious boy.jpg",
+    "title": "Misterious Boy",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-oig3-1",
+    "img": "creations/OIG3 (1).jpeg",
+    "title": "OIG3 (1)",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-oig3-trhbyjfrfa",
+    "img": "creations/OIG3.TRhByJFrfa.jpeg",
+    "title": "Oig3.trhbyjfrfa",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-oig3-ws-1",
+    "img": "creations/OIG3.Ws (1).jpeg",
+    "title": "Oig3.ws (1)",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-oig4",
+    "img": "creations/OIG4..jpeg",
+    "title": "Oig4.",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-orange-hair-hunter-boy-1",
+    "img": "creations/orange hair hunter boy 1.jpeg",
+    "title": "Orange Hair Hunter Boy 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-orange-hair-hunter-boy-2",
+    "img": "creations/orange hair hunter boy 2.jpeg",
+    "title": "Orange Hair Hunter Boy 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-orange-hair-hunter-boy",
+    "img": "creations/orange hair hunter boy.jpeg",
+    "title": "Orange Hair Hunter Boy",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-orange-hair-werewolf-boy-2",
+    "img": "creations/orange hair werewolf boy 2.jpeg",
+    "title": "Orange Hair Werewolf Boy 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-orange-hair-werewolf-boy",
+    "img": "creations/orange hair werewolf boy.jpeg",
+    "title": "Orange Hair Werewolf Boy",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-eye-vamp-1",
+    "img": "creations/red eye vamp 1.jpeg",
+    "title": "Red Eye Vamp 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-eye-vamp-2",
+    "img": "creations/red eye vamp 2.jpeg",
+    "title": "Red Eye Vamp 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-eye-vamp-3",
+    "img": "creations/red eye vamp 3.jpeg",
+    "title": "Red Eye Vamp 3",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-eye-vamp-4",
+    "img": "creations/red eye vamp 4.jpeg",
+    "title": "Red Eye Vamp 4",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-front",
+    "img": "creations/red front.png",
+    "title": "Red Front",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-poster",
+    "img": "creations/red poster.png",
+    "title": "Red Poster",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-red-wt",
+    "img": "creations/red wt.png",
+    "title": "Red Wt",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-sinhala-and-tamil-ne-2",
+    "img": "creations/Sinhala and Tamil Ne 2.png",
+    "title": "Sinhala And Tamil Ne 2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-sinhala-tamil-new-ye",
+    "img": "creations/Sinhala Tamil New Ye.png",
+    "title": "Sinhala Tamil New Ye",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-smile-in-pain-1",
+    "img": "creations/smile in pain 1.png",
+    "title": "Smile In Pain 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-smile-in-pain-2",
+    "img": "creations/smile in pain 2.png",
+    "title": "Smile In Pain 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-smile-in-pain-cover-1",
+    "img": "creations/smile in pain cover 1.png",
+    "title": "Smile In Pain Cover 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-twinking-eyes-1",
+    "img": "creations/twinking eyes 1.png",
+    "title": "Twinking Eyes 1",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-twinkling-eyes-2",
+    "img": "creations/twinkling eyes 2.png",
+    "title": "Twinkling Eyes 2",
+    "category": "poster",
+    "description": "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
+  },
+  {
+    "id": "default-world-scout-day-26-1",
+    "img": "creations/world scout day 26-1.jpeg",
+    "title": "World Scout Day 26-1",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-world-scout-day-26-2",
+    "img": "creations/world scout day 26-2.png",
+    "title": "World Scout Day 26-2",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  },
+  {
+    "id": "default-world-scout-day-26-3",
+    "img": "creations/world scout day 26-3.png",
+    "title": "World Scout Day 26-3",
+    "category": "event",
+    "description": "Event and seasonal visual design created for memorable digital promotion."
+  }
 ];
 
 function openDesignDB(){
@@ -1343,6 +1871,16 @@ return String(value || "")
 .replace(/'/g, "&#039;");
 }
 
+function getImageSource(value){
+const source = String(value || "");
+
+if(source.startsWith("data:image/")){
+return source;
+}
+
+return encodeURI(source).replace(/'/g, "%27");
+}
+
 function getVisibleItems(filter=currentFilter){
 const items = db.map((item, index) => ({
 ...item,
@@ -1396,6 +1934,55 @@ function isUploadedDesign(item){
 return !String(item.id || "").startsWith("default-");
 }
 
+function normalizeDesignText(value){
+return String(value || "")
+.toLowerCase()
+.replace(/^data:image\/[^;]+;base64,/, "")
+.replace(/\.[a-z0-9]+$/i, "")
+.replace(/^\d{4}\s+/, "")
+.replace(/[^a-z0-9]+/g, " ")
+.trim();
+}
+
+function getFileNameFromPath(value){
+return String(value || "")
+.split(/[\\/]/)
+.pop();
+}
+
+function getDesignDuplicateKeys(item){
+const imagePath = String(item.img || "");
+const isEmbeddedImage = imagePath.startsWith("data:image/");
+const imageKey = isEmbeddedImage ? "" : normalizeDesignText(getFileNameFromPath(imagePath));
+const sourceKey = normalizeDesignText(item.sourceName || item.fileName || item.originalName);
+const titleKey = normalizeDesignText(item.title);
+const categoryKey = normalizeDesignText(item.category);
+const nameKeys = [imageKey, sourceKey, titleKey].filter(Boolean);
+
+return [
+imageKey ? `image:${imageKey}` : "",
+sourceKey ? `source:${sourceKey}` : "",
+...nameKeys.map(nameKey => `name:${nameKey}`),
+...nameKeys.map(nameKey => categoryKey ? `category:${categoryKey}:${nameKey}` : "")
+].filter(Boolean);
+}
+
+function dedupeDesigns(items){
+const seen = new Set();
+
+return items.filter(item => {
+const keys = getDesignDuplicateKeys(item);
+const isDuplicate = keys.some(key => seen.has(key));
+
+if(isDuplicate){
+return false;
+}
+
+keys.forEach(key => seen.add(key));
+return true;
+});
+}
+
 function setActiveCategoryButton(category){
 document
 .querySelectorAll(".category-buttons button")
@@ -1425,10 +2012,48 @@ uploadZone.classList.remove("upload-visible");
 }
 }
 
+function mergeStoredDesigns(indexedItems){
+const storedById = new Map(
+indexedItems.map(item => [String(item.id), item])
+);
+
+const bundledDesigns = DEFAULT_DESIGNS.map(defaultItem => {
+const storedItem = storedById.get(String(defaultItem.id));
+
+if(!storedItem){
+return defaultItem;
+}
+
+return {
+...defaultItem,
+title:storedItem.title || defaultItem.title,
+description:storedItem.description || defaultItem.description,
+category:storedItem.category || defaultItem.category,
+order:Number.isFinite(storedItem.order) ? storedItem.order : defaultItem.order
+};
+});
+
+const uploadedDesigns = indexedItems.filter(item => isUploadedDesign(item));
+
+return normalizeDesignOrder(dedupeDesigns([
+...bundledDesigns,
+...uploadedDesigns
+]));
+}
+
 async function loadDB(){
 try{
 const indexedItems = await readIndexedDB();
-db = normalizeDesignOrder(indexedItems.length ? indexedItems : DEFAULT_DESIGNS);
+if(indexedItems.length){
+db = mergeStoredDesigns(indexedItems);
+const storedUploads = getStoredUploads();
+const hasStoredBundledDesigns = indexedItems.some(item => !isUploadedDesign(item));
+if(hasStoredBundledDesigns || getStoredUploadSignature(storedUploads) !== getStoredUploadSignature(indexedItems)){
+writeIndexedDB(storedUploads).catch(() => {});
+}
+}else{
+db = normalizeDesignOrder(DEFAULT_DESIGNS);
+}
 }catch(error){
 db = normalizeDesignOrder(DEFAULT_DESIGNS);
 }
@@ -1566,13 +2191,16 @@ const category = currentUploadCategory === "all"
   ? "poster"
   : currentUploadCategory;
 
-db.push({
+const title = file.name.split(".")[0];
+const incomingDesign = {
 
 id:createDesignId(),
 
 img:imageData,
 
-title:file.name.split(".")[0],
+title:title,
+
+sourceName:file.name,
 
 category:category,
 
@@ -1583,7 +2211,19 @@ order:getNextOrder(),
 description:
 "Creative dark aesthetic portfolio artwork showcasing visual storytelling and cinematic composition."
 
-});
+};
+
+const incomingKeys = getDesignDuplicateKeys(incomingDesign);
+const alreadyExists = db.some(item =>
+incomingKeys.some(key => getDesignDuplicateKeys(item).includes(key))
+);
+
+if(alreadyExists){
+showSaveFeedback("That design is already in the gallery");
+continue;
+}
+
+db.push(incomingDesign);
 
 saveDB();
 
@@ -1591,7 +2231,7 @@ currentFilter = category;
 setActiveCategoryButton(category);
 updateUploadVisibility();
 renderGallery(category);
-showSaveFeedback("Design uploaded permanently");
+showSaveFeedback("Design saved on this device");
 }catch(error){
 showSaveFeedback("One image could not be uploaded");
 }
@@ -1604,11 +2244,35 @@ showSaveFeedback("One image could not be uploaded");
 SAVE DATABASE
 ========================= */
 
+function getStoredUploads(){
+const uploadedItems = db.filter(item => isUploadedDesign(item));
+
+return dedupeDesigns([
+...DEFAULT_DESIGNS,
+...uploadedItems
+]).filter(item => isUploadedDesign(item));
+}
+
+function getStoredUploadSignature(items){
+return JSON.stringify(
+items
+.filter(item => isUploadedDesign(item))
+.map(item => ({
+id:String(item.id || ""),
+img:String(item.img || ""),
+title:String(item.title || ""),
+sourceName:String(item.sourceName || ""),
+category:String(item.category || "")
+}))
+);
+}
+
 function saveDB(){
 
-// Browser uploads are saved locally in IndexedDB. For GitHub/OneDrive hosting,
-// permanent public images must be added to the project files before uploading.
-writeIndexedDB(db).catch(() => {});
+// Browser uploads are saved locally in IndexedDB, so they only appear on this device.
+// Built-in GitHub/creations designs stay in DEFAULT_DESIGNS and are not written
+// back into IndexedDB, preventing the same image from duplicating on every open.
+writeIndexedDB(getStoredUploads()).catch(() => {});
 
 }
 
@@ -1625,7 +2289,7 @@ document.getElementById("posterGrid");
 
 grid.innerHTML = "";
 
-const visibleItems = getVisibleItems(filter);
+const visibleItems = dedupeDesigns(getVisibleItems(filter));
 currentLightboxItems = visibleItems;
 
 visibleItems.forEach((item, index) => {
@@ -1637,7 +2301,7 @@ div.className = "poster";
 
 div.innerHTML = `
 
-<img src="${item.img}" alt="${escapeHTML(item.title)}">
+<img src="${escapeHTML(getImageSource(item.img))}" alt="${escapeHTML(item.title)}">
 
 <div class="poster-overlay">
 
@@ -1719,7 +2383,7 @@ function finalizeUploads(){
   saveDB();
   const saveButton = document.getElementById("saveUploadsButton");
   if(saveButton){
-    saveButton.textContent = "Uploads saved";
+    saveButton.textContent = "Local uploads saved";
     setTimeout(() => {
       if(saveButton.textContent !== "Uploads completed"){
         saveButton.textContent = "Save";
@@ -1865,7 +2529,7 @@ document.getElementById(
 // reset any pending new image
 editNewImageData = null;
 const editPreviewImg = document.getElementById('editPreviewImg');
-if(editPreviewImg){ editPreviewImg.src = item.img; }
+if(editPreviewImg){ editPreviewImg.src = getImageSource(item.img); }
 
 openEditPanel();
 
@@ -2029,7 +2693,7 @@ const item = currentLightboxItems[currentLightboxIndex];
 if(item){
 document.getElementById(
 "lightboxImg"
-).src = item.img;
+).src = getImageSource(item.img);
 }
 }
 
@@ -2099,7 +2763,37 @@ closeLightbox(event);
 INIT
 ========================= */
 
+Object.assign(window, {
+openAdmin,
+closeAdmin,
+outsideClose,
+loginAdmin,
+logoutAdmin,
+openEditPanel,
+closeEditPanel,
+outsideEditClose,
+saveEdit,
+filterGallery,
+openCategory,
+deleteItem,
+editItem,
+finalizeUploads,
+clearUploadedCategory,
+openLightbox,
+closeLightbox,
+showNextImage,
+showPreviousImage
+});
+
+function initializePortfolio(){
 loadDB();
+}
+
+if(document.readyState === "loading"){
+document.addEventListener("DOMContentLoaded", initializePortfolio);
+}else{
+initializePortfolio();
+}
 
 </script>
 
