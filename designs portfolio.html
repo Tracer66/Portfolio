@@ -2224,6 +2224,29 @@ showSaveFeedback("One image could not be uploaded");
 SAVE DATABASE
 ========================= */
 
+function getStoredUploads(){
+const uploadedItems = db.filter(item => isUploadedDesign(item));
+
+return dedupeDesigns([
+...DEFAULT_DESIGNS,
+...uploadedItems
+]).filter(item => isUploadedDesign(item));
+}
+
+function getStoredUploadSignature(items){
+return JSON.stringify(
+items
+.filter(item => isUploadedDesign(item))
+.map(item => ({
+id:String(item.id || ""),
+img:String(item.img || ""),
+title:String(item.title || ""),
+sourceName:String(item.sourceName || ""),
+category:String(item.category || "")
+}))
+);
+}
+
 function saveDB(){
 
 // Browser uploads are saved locally in IndexedDB, so they only appear on this device.
